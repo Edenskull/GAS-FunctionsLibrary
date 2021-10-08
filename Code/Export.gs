@@ -1,6 +1,7 @@
 /**
  * Function to export sheets as JSON file in Google Drive root directory.
  * @param {bool} fetch - If you need to split json files for every sheets.
+ * @param {bool} compact - If you want to get sheets object istead of sheetName object.
  * @param {Sheet} sheets - Sheet object that need to be exported.
  */
 function sheetToJSON(fetch, compact, ...sheets) {
@@ -42,6 +43,12 @@ function sheetToJSON(fetch, compact, ...sheets) {
     }
 }
 
+/**
+ * Function to export sheets as XML file in Google Drive root directory.
+ * @param {bool} fetch - If you need to split json files for every sheets.
+ * @param {bool} compact - If you want to get sheet node with attribute name instead of sheetname node
+ * @param {Sheet} sheets - Sheet object that need to be exported.
+ */
 function sheetToXML(fetch, compact, ...sheets) {
     var keys;
     var resultXML = XmlService.createElement("root");
