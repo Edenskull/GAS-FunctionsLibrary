@@ -1,28 +1,42 @@
 /**
- * Function to export sheets as JSON file in Google Drive root directory.
- * @param {bool} fetch - If you need to split json files for every sheets.
- * @param {bool} compact - If you want to get sheets object istead of sheetName object.
- * @param {Sheet} sheets - Sheet object that need to be exported.
- */
-function sheetToJSON(fetch, compact, ...sheets) {
+   * Function to export sheets as JSON file in Google Drive root directory.
+   * @param {bool} fetch - If you need to split json files for every sheets.
+   * @param {bool} compact - If you want to get sheets object istead of sheetName object.
+   * @param {bool} lockTypeFromFirstRow - If you want to use the first row item type as mandatory types (return error if type is different).
+   * @param {Sheet} sheets - Sheet object that need to be exported.
+   */
+function sheetToJSON(fetch, compact, lockTypeFromFirstRow, ...sheets) {
     var keys;
     var resultJSON = {};
     var sheetName;
     sheets.forEach((sheet) => {
+        var lockType = [];
         let values = sheet.getSheetValues(1, 1, sheet.getLastRow(), sheet.getLastColumn());
         sheetName = sheet.getSheetName();
+        values[1].forEach((item) => {
+            lockType.push(typeof item);
+        });
         if (compact) {
             resultJSON["sheets"] = [];
         } else {
             resultJSON[sheetName] = [];
         }
-        values.forEach((row, index) => {
-            if (index == 0) {
+        Logger.log(lockType);
+        values.forEach((row, indexRow) => {
+            if (indexRow == 0) {
                 keys = row;
             } else {
                 var tempJSON = (compact) ? { "sheetName": sheetName } : {};
                 row.forEach((item, index) => {
-                    tempJSON[keys[index]] = item;
+                    if (lockTypeFromFirstRow) {
+                        if (typeof item == lockType[index]) {
+                            tempJSON[keys[index]] = item;
+                        } else {
+                            throw new Error(`The value ${item} from the cell [${columnToLetter(index + 1) + (indexRow + 1)}] in ${sheetName} don't have the right type : Should be "${lockType[index]}" is "${typeof item}"`);
+                        }
+                    } else {
+                        tempJSON[keys[index]] = item;
+                    }
                 });
                 if (compact) {
                     resultJSON["sheets"].push(tempJSON);
