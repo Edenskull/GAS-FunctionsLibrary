@@ -32,11 +32,12 @@ function _test() {
 }
 ```
 
-## multiDimensionalUnique(array)
+## multiDimensionalUnique(array, ignoreCase)
 
 ### Params
 
 > <ins>**@array** <small>Array[]</small></ins> : Array of value that must be more than 2D.
+> <ins>**@ignoreCase** <small>bool</small></ins> : Array of value that must be more than 2D.
 
 ### Return
 

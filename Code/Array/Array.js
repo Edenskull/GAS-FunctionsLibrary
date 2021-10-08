@@ -1,8 +1,8 @@
 /**
  * Function to change array (could be more than 2D) items case (lower or upper). Work with Spreadsheet array of values (.getValues()). But it doesn't convert Dates, Numbers, Currencies...
- * @param {array} array - Array that need case update
- * @param {string} mode - You have choice between "upper", "lower", "title"
- * @returns {Array} New Array with updated case.
+ * @param {Array} array - Array that need case update
+ * @param {String} mode - You have choice between "upper", "lower", "title"
+ * @returns {Array || Array[]} New Array with updated case.
  */
 function changeArrayCase(array, mode) {
     return array.map((item) => {
@@ -28,9 +28,9 @@ function changeArrayCase(array, mode) {
 
 /**
  * Function to remove duplicates in 2D arrays.
- * @param {array} array - Array that need to be pruned
- * @param {bool} ignoreCase - If you want to ignore case
- * @returns {Array} New Array without duplicates.
+ * @param {Array} array - Array that need to be pruned
+ * @param {Bool} ignoreCase - If you want to ignore case
+ * @returns {Array || Array[]} New Array without duplicates.
  */
 function multiDimensionalUnique(array, ignoreCase) {
     var uniques = [];
