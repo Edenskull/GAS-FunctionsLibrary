@@ -6,10 +6,10 @@
 
 - Guide
 
-  - [Array](methods/array.md)
-  - [Export](methods/export.md)
-  - [Helpers](methods/helpers.md)
-  - [Operations](methods/operations.md)
+  - [Array](array.md)
+  - [Export](export.md)
+  - [Helpers](helpers.md)
+  - [Operations](operations.md)
 
 - [Changelog](changelog.md)
 - [Credits](credits.md)
