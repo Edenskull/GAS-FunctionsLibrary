@@ -65,8 +65,9 @@ function _test() {
 JSON output is:
 ```json
 {
-  "Sheet1": [
+  "Sheets": [
     {
+      "sheetName": "Sheet1",
       "colA": "im",
       "colB": "batman",
       "colC": 92
