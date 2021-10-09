@@ -21,7 +21,6 @@ function sheetToJSON(fetch, compact, lockTypeFromFirstRow, ...sheets) {
         } else {
             resultJSON[sheetName] = [];
         }
-        Logger.log(lockType);
         values.forEach((row, indexRow) => {
             if (indexRow == 0) {
                 keys = row;
