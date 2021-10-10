@@ -1,7 +1,7 @@
 /**
  * Function to export sheets as JSON file in Google Drive root directory.
- * @param {bool} fetch - If you need to split json files for every sheets.
- * @param {bool} lockTypeFromFirstRow - If you want to use the first row item type as mandatory types (return error if type is different).
+ * @param {Bool} fetch - If you need to split json files for every sheets.
+ * @param {Bool} lockTypeFromFirstRow - If you want to use the first row item type as mandatory types (return error if type is different).
  * @param {Sheet} sheets - Sheet object that need to be exported.
  */
 function sheetToJSON(fetch, lockTypeFromFirstRow, ...sheets) {
@@ -51,8 +51,7 @@ function sheetToJSON(fetch, lockTypeFromFirstRow, ...sheets) {
 
 /**
  * Function to export sheets as XML file in Google Drive root directory.
- * @param {bool} fetch - If you need to split json files for every sheets.
- * @param {bool} compact - If you want to get sheet node with attribute name instead of sheetname node
+ * @param {Bool} fetch - If you need to split json files for every sheets.
  * @param {Sheet} sheets - Sheet object that need to be exported.
  */
 function sheetToXML(fetch, ...sheets) {

@@ -1,7 +1,7 @@
 /**
  * Sum all number from a Sheet Range(s).
  * @param {Range} ranges - Should be a Range define with getRange(). Multiple range can be passed to the function.
- * @return {int} Sum of the range values. Skip string values.
+ * @return {Int} Sum of the range values. Skip string values.
  */
 function sum(...ranges) {
     let result = 0;
