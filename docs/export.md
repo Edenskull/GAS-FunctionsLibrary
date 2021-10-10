@@ -1,8 +1,8 @@
 # Export
 
-## sheetToJSON(fetch, compact, lockTypeFromFirstRow, ...sheets)
+## sheetToJSON(fetch, lockTypeFromFirstRow, ...sheets)
 
-> Function to export a sheet JSON format with process params.
+> Function to export a sheet to JSON format with process params.
 
 ### Params
 
@@ -12,17 +12,17 @@
 
 ### Return
 
-> <ins>**No return** <small></small></ins> : The formatted JSOn will be in the root of the Google Drive.
+> <ins>**No return** <small></small></ins> : The formatted JSON will be in the root of the Google Drive.
 
 ### Example
 
 ```js
 function _test() {
   // content : [["colA"],["colB"],["colC"]],[["im"],["batman"],[92]],[["im"],["robin"],[97]];
-  var sheetValue = SpreadsheetApp.openById("16vYy5B2iiLbowUcqrvUpzexUZ-gvCcPw0M-dJY1C_7g").getSheets()[0];
+  var sheetValue = SpreadsheetApp.getActiveSheet().getSheets()[0];
   // content : [["colA"],["colB"],["colC"]],[["im"],["joker"],[92]],[["im"],["quinn"],[97]]
-  var sheetValue2 = SpreadsheetApp.openById("16vYy5B2iiLbowUcqrvUpzexUZ-gvCcPw0M-dJY1C_7g").getSheets()[1];
-  sheetToJSON(true, false, true, sheetValue, sheetValue2);
+  var sheetValue2 = SpreadsheetApp.getActiveSheet().getSheets()[1];
+  sheetToJSON(false, true, sheetValue, sheetValue2);
 }
 ```
 JSON output is:
@@ -55,69 +55,56 @@ JSON output is:
 }
 ```
 
-```js
-function _test() {
-  // content : [["colA"],["colB"],["colC"]],[["im"],["batman"],[92]],[["im"],["robin"],[97]];
-  var sheetValue = SpreadsheetApp.openById("16vYy5B2iiLbowUcqrvUpzexUZ-gvCcPw0M-dJY1C_7g").getSheets()[0];
-  sheetToJSON(true, true, true, sheetValue);
-}
-```
-JSON output is:
-```json
-{
-  "Sheets": [
-    {
-      "sheetName": "Sheet1",
-      "colA": "im",
-      "colB": "batman",
-      "colC": 92
-    },
-    {
-      "colA": "im",
-      "colB": "robin",
-      "colC": 97
-    }
-  ],
-  "Sheet2": [
-    {
-      "colA": "im",
-      "colB": "joker",
-      "colC": 92
-    },
-    {
-      "colA": "im",
-      "colB": "quinn",
-      "colC": 97
-    }
-  ]
-}
-```
+## sheetToXML(fetch, ...sheets)
 
-## multiDimensionalUnique(array, ignoreCase)
+> Function to export a sheet to XML format with process params.
 
 ### Params
 
-> <ins>**@array** <small>Array[]</small></ins> : Array of value that must be more than 2D.
-> <ins>**@ignoreCase** <small>bool</small></ins> : Array of value that must be more than 2D.
+> <ins>**@fetch** <small>Bool</small></ins> : True if you want to export all the defined sheets into on JSON file, otherwise it will create one file for every sheets.
 
 ### Return
 
-> <ins>**Type** <small>Array[]</small></ins> : Array without duplicates.
+> <ins>**No return** <small></small></ins> : The formatted XML will be in the root of the Google Drive.
 
 ### Example
 
 ```js
 function _test() {
-  //var sheetValues = SpreadsheetApp.getActiveSheet().getRange(1, 1, 4, 2).getValues();
-  let sheetValues = [["im", "batman"], ["im", "robin"], ["im", "batman"], ["im", "Robin"]]
-  Logger.log(multiDimensionalUnique(sheetValues, false));
-  // Logger.log : [["im", "batman"], ["im", "robin"], ["im", "Robin"]]
+  // content : [["colA"],["colB"],["colC"]],[["im"],["batman"],[92]],[["im"],["robin"],[97]];
+  var sheetValue = SpreadsheetApp.getActiveSheet().getSheets()[0];
+  // content : [["colA"],["colB"],["colC"]],[["im"],["joker"],[92]],[["im"],["quinn"],[97]]
+  var sheetValue2 = SpreadsheetApp.getActiveSheet().getSheets()[1];
+  sheetToXML(true, sheetValue, sheetValue2);
 }
-
-function _test() {
-  //var sheetValues = SpreadsheetApp.getActiveSheet().getRange(1, 1, 5, 2).getValues();
-  let sheetValues = [["im", "batman"], ["im", "robin"], ["im", "batman"], [19, 19], ["im", "Robin"]];
-  Logger.log(multiDimensionalUnique(sheetValues, true));
-  // Logger.log : [["im", "batman"], ["im", "robin"], [19, 19]]
-}
+```
+XML output is:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <sheet sheetName="Sheet1">
+    <row>
+      <colA>im</colA>
+      <colB>batman</colB>
+      <colC>92</colC>
+    </row>
+    <row>
+      <colA>im</colA>
+      <colB>robin</colB>
+      <colC>97</colC>
+    </row>
+  </sheet>
+  <sheet sheetName="Sheet2">
+    <row>
+      <colA>im</colA>
+      <colB>joker</colB>
+      <colC>92</colC>
+    </row>
+    <row>
+      <colA>im</colA>
+      <colB>quinn</colB>
+      <colC>97</colC>
+    </row>
+  </sheet>
+</root>
 ```

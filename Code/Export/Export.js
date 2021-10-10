@@ -55,24 +55,25 @@ function sheetToJSON(fetch, lockTypeFromFirstRow, ...sheets) {
  * @param {bool} compact - If you want to get sheet node with attribute name instead of sheetname node
  * @param {Sheet} sheets - Sheet object that need to be exported.
  */
-function sheetToXML(fetch, compact, ...sheets) {
-    var keys;
+function sheetToXML(fetch, ...sheets) {
+    var sheetName, keys;
     var resultXML = XmlService.createElement("root");
-    var sheetName;
     sheets.forEach((sheet) => {
         let values = sheet.getSheetValues(1, 1, sheet.getLastRow(), sheet.getLastColumn());
         sheetName = sheet.getSheetName();
-        var sheetNode = (compact) ? XmlService.createElement("sheet").setAttribute("sheetName", sheetName) : XmlService.createElement("sheet").setName(sheetName);
+        var sheetNode = XmlService.createElement("sheet").setAttribute("sheetName", sheetName);
         values.forEach((row, index) => {
             if (index == 0) {
                 keys = row;
             } else {
+                var rowNode = XmlService.createElement("row");
                 row.forEach((item, index) => {
-                    var valueNode = XmlService.createElement("value")
+                    let valueNode = XmlService.createElement("value")
                         .setName(keys[index])
                         .setText(item);
-                    sheetNode.addContent(valueNode);
+                    rowNode.addContent(valueNode)
                 });
+                sheetNode.addContent(rowNode);
             }
         });
         if (!fetch) {
