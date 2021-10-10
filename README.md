@@ -25,4 +25,4 @@ Google Appscript library ID:
 1S3ysB3sl2Pn_njmIWv8ZpJbGA2EpCSpZ8YHnqLXVFhSxnqvcNSMp61fL
 ```
 
-See the [web documentation]("https://gasfunctions-library.edenskull.fr")
+See the [Web Documentation](https://gasfunctions-library.edenskull.fr)
