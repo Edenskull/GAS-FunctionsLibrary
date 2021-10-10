@@ -6,7 +6,7 @@
 
 ### Params
 
-> <ins>**@fetch** <small>Bool</small></ins> : True if you want to export all the defined sheets into on JSON file, otherwise it will create one file for every sheets.
+> <ins>**@fetch** <small>Bool</small></ins> : True if you want to export all the defined sheets into one JSON file, otherwise it will create one file for every sheets.
 
 > <ins>**@compact** <small>Bool</small></ins> : True if you want to get generic names as the top node. If false the top node name will be set as the sheet name.
 
@@ -61,7 +61,7 @@ JSON output is:
 
 ### Params
 
-> <ins>**@fetch** <small>Bool</small></ins> : True if you want to export all the defined sheets into on JSON file, otherwise it will create one file for every sheets.
+> <ins>**@fetch** <small>Bool</small></ins> : True if you want to export all the defined sheets into one XML file, otherwise it will create one file for every sheets.
 
 ### Return
 
