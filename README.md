@@ -5,8 +5,8 @@
 <div align="center">
 
 [![GitHub license](https://img.shields.io/github/license/Edenskull/GAS-FunctionsLibrary?color=blue&style=for-the-badge)](https://github.com/Edenskull/GAS-FunctionsLibrary/blob/master/LICENSE)
-![GitHub repo size](https://img.shields.io/github/repo-size/Edenskull/GAS-FunctionsLibrary?color=green&style=for-the-badge)
-![GitHub repo size](https://img.shields.io/badge/Google%20%7C%20Appscript-yellow?style=for-the-badge)
+![Google](https://img.shields.io/badge/Google-Appscript-yellow?style=for-the-badge)
+[![Release](https://img.shields.io/github/v/release/Edenskull/GAS-FunctionsLibrary?style=for-the-badge)](https://github.com/Edenskull/GAS-FunctionsLibrary/releases/tag/v0.0.2-beta)
 
 </div>
 
@@ -20,4 +20,9 @@ Google App Script project that contains several functions not implemented native
 
 ## Installation
 
-See the ![web documentation]("https://gasfunctions-library.edenskull.fr")
+Google Appscript library ID:
+```
+1S3ysB3sl2Pn_njmIWv8ZpJbGA2EpCSpZ8YHnqLXVFhSxnqvcNSMp61fL
+```
+
+See the [web documentation]("https://gasfunctions-library.edenskull.fr")
