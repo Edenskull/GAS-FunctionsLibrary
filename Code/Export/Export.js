@@ -1,32 +1,27 @@
 /**
-   * Function to export sheets as JSON file in Google Drive root directory.
-   * @param {bool} fetch - If you need to split json files for every sheets.
-   * @param {bool} compact - If you want to get sheets object istead of sheetName object.
-   * @param {bool} lockTypeFromFirstRow - If you want to use the first row item type as mandatory types (return error if type is different).
-   * @param {Sheet} sheets - Sheet object that need to be exported.
-   */
-function sheetToJSON(fetch, compact, lockTypeFromFirstRow, ...sheets) {
+ * Function to export sheets as JSON file in Google Drive root directory.
+ * @param {bool} fetch - If you need to split json files for every sheets.
+ * @param {bool} lockTypeFromFirstRow - If you want to use the first row item type as mandatory types (return error if type is different).
+ * @param {Sheet} sheets - Sheet object that need to be exported.
+ */
+function sheetToJSON(fetch, lockTypeFromFirstRow, ...sheets) {
     var keys;
-    var resultJSON = {};
+    var resultJSON = { "sheets": [] };
     var sheetName;
+    var sheetJSON;
     sheets.forEach((sheet) => {
         var lockType = [];
         let values = sheet.getSheetValues(1, 1, sheet.getLastRow(), sheet.getLastColumn());
         sheetName = sheet.getSheetName();
+        sheetJSON = { "sheetName": sheetName, "sheetValues": [] };
         values[1].forEach((item) => {
             lockType.push(typeof item);
         });
-        if (compact) {
-            resultJSON["sheets"] = [];
-        } else {
-            resultJSON[sheetName] = [];
-        }
-        Logger.log(lockType);
         values.forEach((row, indexRow) => {
             if (indexRow == 0) {
                 keys = row;
             } else {
-                var tempJSON = (compact) ? { "sheetName": sheetName } : {};
+                var tempJSON = {};
                 row.forEach((item, index) => {
                     if (lockTypeFromFirstRow) {
                         if (typeof item == lockType[index]) {
@@ -38,17 +33,14 @@ function sheetToJSON(fetch, compact, lockTypeFromFirstRow, ...sheets) {
                         tempJSON[keys[index]] = item;
                     }
                 });
-                if (compact) {
-                    resultJSON["sheets"].push(tempJSON);
-                } else {
-                    resultJSON[sheetName].push(tempJSON);
-                }
+                sheetJSON["sheetValues"].push(tempJSON);
             }
         });
         if (!fetch) {
-            let blob = Utilities.newBlob(JSON.stringify(resultJSON, null, 2), "application/json", sheetName + " - JSON Export.json");
+            let blob = Utilities.newBlob(JSON.stringify(sheetJSON, null, 2), "application/json", sheetName + " - JSON Export.json");
             DriveApp.createFile(blob);
-            delete resultJSON[sheetName];
+        } else {
+            resultJSON["sheets"].push(sheetJSON);
         }
     });
     if (fetch) {
