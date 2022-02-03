@@ -133,3 +133,12 @@ function removeSpecific(array, value, ignoreCase = false){
   });
   return newArray;
 }
+
+/**
+ * Function to transpose matrix. In Spreadsheets, change .getValues() result to column instead of rows.
+ * @param {Array[][]} array - this array is the result of the .getValues() (built-in Google Sheets function)
+ * @returns {Array[][]} new array with transposed values (row/col to col/row)
+ */
+function transposeMatrix(array) {
+  return array[0].map((col, i) => array.map(row => row[i]));
+}
