@@ -27,35 +27,69 @@ function changeArrayCase(array, mode) {
 }
 
 /**
- * Function to remove duplicates in arrays.
+ * Function to remove duplicates in flat array.
  * @param {Array} array - Array that need to be pruned
- * @returns {Array} New Array without duplicates.
+ * @param {Bool} ignoreCase - Whether or not to ignore case
+ * @returns {Array} new Array without duplicate elements within.
  */
-function multiDimensionalUnique(array, ignoreCase) {
-    var uniques = [];
-    var itemsFound = {};
-    for (var i = 0, l = array.length; i < l; i++) {
-        var stringified;
-        if (ignoreCase) {
-            if (array[i].constructor == Array) {
-                stringified = JSON.stringify(array[i].map((item) => {
-                    if (item.constructor != Number && item.constructor != Date) {
-                        return item.toLowerCase();
-                    } else {
-                        return item;
-                    }
-                }));
-            } else {
+function arrayUnique(array, ignoreCase = false) {
+  if(ignoreCase) {
+    return array.filter(function(v, i, a){
+      a = changeArrayCase(a, "lower");
+      try {
+        return a.indexOf(v.toLowerCase()) === i;
+      } catch(TypeError) {
+        return a.indexOf(v) === i;
+      }
+    });
+  } else {
+    return array.filter((v, i, a) => a.indexOf(v) === i);
+  }
+}
 
-            }
+/**
+ * Function to remove duplicates in multi dimensional array.
+ * @param {Array} array - array that need to be pruned
+ * @param {Bool} wholeArray - Whether or not to remove whole array instead of removing duplicates in sub arrays
+ * @param {Bool} ignoreCase - Whether or not to ignore case
+ * @returns {Array} new array without duplicates elements within
+ */
+function multiDimensionalUnique(array, wholeArray = false, ignoreCase = false) {
+  var uniques = [];
+  var itemsFound = {};
+  if(wholeArray){
+    for(var i = 0, l = array.length; i < l; i++) {
+      if(ignoreCase){
+        if(Array.isArray(array[i])){
+          array[i] = changeArrayCase(array[i], 'lower');
         } else {
-            stringified = JSON.stringify(array[i]);
+          try {
+            array[i] = array[i].toLowerCase();
+          } catch(TypeError) {
+            array[i] = array[i]
+          }
         }
-        if (itemsFound[stringified]) {
-            continue;
-        }
-        uniques.push(array[i]);
-        itemsFound[stringified] = true;
+      }
+      var stringified = JSON.stringify(array[i]);
+      if(itemsFound[stringified]) { continue; }
+      uniques.push(array[i]);
+      itemsFound[stringified] = true;
     }
-    return uniques;
+  } else {
+    array.forEach(function(x) {
+      if(!Array.isArray(x)){
+        try {
+          x = x.toLowerCase();
+        } catch(TypeError){
+          x = x;
+        }
+        if(!uniques.includes(x)){
+          uniques.push(x);
+        }
+      } else {
+        uniques.push(multiDimensionalUnique(x));
+      }
+    });
+  }
+  return uniques;
 }
