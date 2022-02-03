@@ -93,3 +93,26 @@ function _test() {
   // Logger.log : [test1, test2, [test1, test2], [test1, test2], [1.0, 2.0], [1.0, 2.0]]
 }
 ```
+
+## transposeMatrix(array)
+
+> Function to transpose rows and cols with the built-in function .getValues().
+
+### Params
+
+> <ins>**@array** <small>Array[]</small></ins> : this array is the result of the .getValues() (built-in Google Sheets function).
+
+### Return
+
+> <ins>**Type** <small>Array[]</small></ins> : new array with transposed values (row/col to col/row).
+
+### Example
+
+```js
+function _test() {
+  //var sheetValues = SpreadsheetApp.getActiveSheet().getRange(1, 1, 4, 2).getValues();
+  var sheetValues = [["test1", "test2"], ["test3", "test4"], ["test5", "test6"]];
+  Logger.log(NameSpace.transposeMatrix(sheetValues));
+  // Logger.log : [[test1, test3, test5], [test2, test4, test6]]
+}
+```
