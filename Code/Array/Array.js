@@ -95,3 +95,41 @@ function multiDimensionalUnique(array, wholeArray = false, ignoreCase = false) {
   }
   return uniques;
 }
+
+/**
+ * Function to remove specific element from array (can be multi dimensional or flat).
+ * @param {Array} array - array that where specific value will be removed
+ * @param {Any} value - value that will be removed from the array
+ * @param {Bool} ignoreCase - Whether or not to ignore case
+ * @returns {Array} new array without the specific element
+ */
+function removeSpecific(array, value, ignoreCase = false){
+  var newArray = [];
+  if(ignoreCase){
+    try {
+      value = value.toLowerCase();
+    } catch(TypeError){
+      value = value;
+    }
+  }
+  array.forEach(function(item){
+    if(Array.isArray(item)){
+      newArray.push(removeSpecific(item, value, ignoreCase));
+    } else {
+      var check = null;
+      if(ignoreCase){
+        try {
+          check = item.toLowerCase() !== value;
+        } catch(TypeError) {
+          check = item !== value;
+        }
+      } else {
+        check = item !== value;
+      }
+      if(check){
+        newArray.push(item);
+      }
+    }
+  });
+  return newArray;
+}
