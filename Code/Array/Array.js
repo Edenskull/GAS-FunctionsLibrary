@@ -78,16 +78,18 @@ function multiDimensionalUnique(array, wholeArray = false, ignoreCase = false) {
   } else {
     array.forEach(function(x) {
       if(!Array.isArray(x)){
-        try {
-          x = x.toLowerCase();
-        } catch(TypeError){
-          x = x;
+        if(ignoreCase){
+          try {
+            x = x.toLowerCase();
+          } catch(TypeError){
+            x = x;
+          }
         }
         if(!uniques.includes(x)){
           uniques.push(x);
         }
       } else {
-        uniques.push(multiDimensionalUnique(x));
+        uniques.push(multiDimensionalUnique(x, wholeArray, ignoreCase));
       }
     });
   }
