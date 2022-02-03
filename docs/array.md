@@ -100,11 +100,11 @@ function _test() {
 
 ### Params
 
-> <ins>**@array** <small>Array[]</small></ins> : this array is the result of the .getValues() (built-in Google Sheets function).
+> <ins>**@array** <small>Array[][]</small></ins> : this array is the result of the .getValues() (built-in Google Sheets function).
 
 ### Return
 
-> <ins>**Type** <small>Array[]</small></ins> : new array with transposed values (row/col to col/row).
+> <ins>**Type** <small>Array[][]</small></ins> : new array with transposed values (row/col to col/row).
 
 ### Example
 
