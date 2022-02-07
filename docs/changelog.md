@@ -1,3 +1,16 @@
+## [0.0.3-beta](https://github.com/Edenskull/GAS-FunctionsLibrary/compare/v0.0.2-beta...v0.0.3-beta) (2022-02-07)
+
+
+### Bugfix
+
+- Arrays:
+  - Fixe issues with multidimensional arrays. Should now work for any case.
+
+### Remove
+
+- Arrays:
+  - Remove Flatten function as it's now handled by appscript with `.flat()`
+
 ## [0.0.2-beta](https://github.com/Edenskull/GAS-FunctionsLibrary/compare/v0.0.1-beta...v0.0.2-beta) (2021-10-10)
 
 

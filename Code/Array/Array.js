@@ -27,35 +27,118 @@ function changeArrayCase(array, mode) {
 }
 
 /**
- * Function to remove duplicates in arrays.
+ * Function to remove duplicates in flat array.
  * @param {Array} array - Array that need to be pruned
- * @returns {Array} New Array without duplicates.
+ * @param {Bool} ignoreCase - Whether or not to ignore case
+ * @returns {Array} new Array without duplicate elements within.
  */
-function multiDimensionalUnique(array, ignoreCase) {
-    var uniques = [];
-    var itemsFound = {};
-    for (var i = 0, l = array.length; i < l; i++) {
-        var stringified;
-        if (ignoreCase) {
-            if (array[i].constructor == Array) {
-                stringified = JSON.stringify(array[i].map((item) => {
-                    if (item.constructor != Number && item.constructor != Date) {
-                        return item.toLowerCase();
-                    } else {
-                        return item;
-                    }
-                }));
-            } else {
+function arrayUnique(array, ignoreCase = false) {
+  if(ignoreCase) {
+    return array.filter(function(v, i, a){
+      a = changeArrayCase(a, "lower");
+      try {
+        return a.indexOf(v.toLowerCase()) === i;
+      } catch(TypeError) {
+        return a.indexOf(v) === i;
+      }
+    });
+  } else {
+    return array.filter((v, i, a) => a.indexOf(v) === i);
+  }
+}
 
-            }
+/**
+ * Function to remove duplicates in multi dimensional array.
+ * @param {Array} array - array that need to be pruned
+ * @param {Bool} wholeArray - Whether or not to remove whole array instead of removing duplicates in sub arrays
+ * @param {Bool} ignoreCase - Whether or not to ignore case
+ * @returns {Array} new array without duplicates elements within
+ */
+function multiDimensionalUnique(array, wholeArray = false, ignoreCase = false) {
+  var uniques = [];
+  var itemsFound = {};
+  if(wholeArray){
+    for(var i = 0, l = array.length; i < l; i++) {
+      if(ignoreCase){
+        if(Array.isArray(array[i])){
+          array[i] = changeArrayCase(array[i], 'lower');
         } else {
-            stringified = JSON.stringify(array[i]);
+          try {
+            array[i] = array[i].toLowerCase();
+          } catch(TypeError) {
+            array[i] = array[i]
+          }
         }
-        if (itemsFound[stringified]) {
-            continue;
-        }
-        uniques.push(array[i]);
-        itemsFound[stringified] = true;
+      }
+      var stringified = JSON.stringify(array[i]);
+      if(itemsFound[stringified]) { continue; }
+      uniques.push(array[i]);
+      itemsFound[stringified] = true;
     }
-    return uniques;
+  } else {
+    array.forEach(function(x) {
+      if(!Array.isArray(x)){
+        if(ignoreCase){
+          try {
+            x = x.toLowerCase();
+          } catch(TypeError){
+            x = x;
+          }
+        }
+        if(!uniques.includes(x)){
+          uniques.push(x);
+        }
+      } else {
+        uniques.push(multiDimensionalUnique(x, wholeArray, ignoreCase));
+      }
+    });
+  }
+  return uniques;
+}
+
+/**
+ * Function to remove specific element from array (can be multi dimensional or flat).
+ * @param {Array} array - array that where specific value will be removed
+ * @param {Any} value - value that will be removed from the array
+ * @param {Bool} ignoreCase - Whether or not to ignore case
+ * @returns {Array} new array without the specific element
+ */
+function removeSpecific(array, value, ignoreCase = false){
+  var newArray = [];
+  if(ignoreCase){
+    try {
+      value = value.toLowerCase();
+    } catch(TypeError){
+      value = value;
+    }
+  }
+  array.forEach(function(item){
+    if(Array.isArray(item)){
+      newArray.push(removeSpecific(item, value, ignoreCase));
+    } else {
+      var check = null;
+      if(ignoreCase){
+        try {
+          check = item.toLowerCase() !== value;
+        } catch(TypeError) {
+          check = item !== value;
+        }
+      } else {
+        check = item !== value;
+      }
+      if(check){
+        newArray.push(item);
+      }
+    }
+  });
+  return newArray;
+}
+
+/**
+ * Function to transpose matrix. In Spreadsheets, change .getValues() result to column instead of rows.
+ * @param {Array[][]} array - this array is the result of the .getValues() (built-in Google Sheets function)
+ * @returns {Array[][]} new array with transposed values (row/col to col/row)
+ */
+function transposeMatrix(array) {
+  return array[0].map((col, i) => array.map(row => row[i]));
 }
