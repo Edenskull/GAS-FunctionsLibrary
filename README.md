@@ -6,7 +6,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/Edenskull/GAS-FunctionsLibrary?color=blue&style=for-the-badge)](https://github.com/Edenskull/GAS-FunctionsLibrary/blob/master/LICENSE)
 ![Google](https://img.shields.io/badge/Google-Appscript-yellow?style=for-the-badge)
-[![Release](https://img.shields.io/github/v/release/Edenskull/GAS-FunctionsLibrary?style=for-the-badge)](https://github.com/Edenskull/GAS-FunctionsLibrary/releases/tag/v0.0.2-beta)
+[![Release](https://img.shields.io/github/v/release/Edenskull/GAS-FunctionsLibrary?style=for-the-badge)](https://github.com/Edenskull/GAS-FunctionsLibrary/releases/tag/latest)
 
 </div>
 
