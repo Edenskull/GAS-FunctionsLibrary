@@ -11,14 +11,6 @@
 - Arrays:
   - Remove Flatten function as it's now handled by appscript with `.flat()`
 
-### Global
-
-- Docsify:
-  - Setup Docsify
-  - Register every functions
-- CodeQL:
-  - Setup CodeQL
-
 ## [0.0.2-beta](https://github.com/Edenskull/GAS-FunctionsLibrary/compare/v0.0.1-beta...v0.0.2-beta) (2021-10-10)
 
 
