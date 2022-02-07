@@ -94,6 +94,33 @@ function _test() {
 }
 ```
 
+## removeSpecific(array, value, ignoreCase)
+
+> Function to remove specific element from arrays.
+
+### Params
+
+> <ins>**@array** <small>Array[]</small></ins> : Array of value (can be multi dimensional).
+> <ins>**@value** <small>string/number</small></ins> : value to remove.
+> <ins>**@ignoreCase** <small>bool</small></ins> : Whether or not to ignore case (default false).
+
+### Return
+
+> <ins>**Type** <small>Array[]</small></ins> : Array without specific element.
+
+### Example
+
+```js
+function _test() {
+  //var sheetValues = SpreadsheetApp.getActiveSheet().getRange(1, 1, 4, 2).getValues();
+  var sheetValues = [["test1", "test2"], ["test3", "test4"], ["test5", "test6"]];
+  Logger.log(NameSpace.removeSpecific(sheetValues, "test1"));
+  // Logger.log : [[test3, test5], [test2, test4, test6]]
+  Logger.log(NameSpace.removeSpecific(sheetValues, "test2"));
+  // Logger.log : [[test1, test3, test5], [test4, test6]]
+}
+```
+
 ## transposeMatrix(array)
 
 > Function to transpose rows and cols with the built-in function .getValues().
